@@ -12,6 +12,22 @@
 
 using namespace std;
 
+string buildOutputFile(string text, ofstream& outputFile) {
+
+    if ( outputFile.is_open() ) {
+        outputFile << text;
+        outputFile.close();
+    } else {
+        stringstream ss;
+        ss << "Error: The file does not created." << endl;
+        return ss.str();
+    }
+
+    stringstream ss;
+    ss << "The output file was built.";
+    return ss.str();
+}
+
 Graph* leitura(ifstream& input_file, int directed, int weightedEdge, int weightedNode){
 
     //Variáveis para auxiliar na criação dos nós no Grafo
@@ -145,9 +161,16 @@ void selecionar(int selecao, Graph* graph, ofstream& output_file){
 
             //AGM - Kruscal;
         case 4:{
-
-
-
+            Graph *sub_graph = graph->getVertexInduced();
+            string fileText = graph->agmKuskal(sub_graph);
+            stringstream ss;
+            cout << endl;
+            if ( fileText != "" ) {
+                ss << buildOutputFile(fileText, output_file);
+            }else{
+                cout << "Error";
+            }
+            cout << ss.str();
             break;
         }
 

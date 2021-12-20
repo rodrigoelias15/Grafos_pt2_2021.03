@@ -152,9 +152,12 @@ Graph* getVertexInduced(int* listIdNodes){
 
 }
 
-Graph* agmKuskal(){
-
+string Graph::agmKuskal(Graph * sub_graph){
+    this->printer << "-->AGM Kuskal\n";
+    this->printer << "Will be done" << endl;
+    return this->printer.str();
 }
+
 Graph* agmPrim(){
 
 }
