@@ -97,47 +97,126 @@ Node *Graph::getLastNode()
 */
 void Graph::insertNode(int id)
 {
-    
+
 }
 
 void Graph::insertEdge(int id, int target_id, float weight)
 {
 
-    
+
 }
 
-void Graph::removeNode(int id){ 
-    
+void Graph::removeNode(int id){
+
 }
 
 bool Graph::searchNode(int id)
 {
-    
+
 }
 
 Node *Graph::getNode(int id)
 {
 
-    
+
 }
 
 
 //Function that prints a set of edges belongs breadth tree
 
 void Graph::breadthFirstSearch(ofstream &output_file){
-    
+
 }
 
 
 
-float Graph::floydMarshall(int idSource, int idTarget){
-    
+/*float Graph::floydMarshall(int idSource, int idTarget){
+
+}*/
+string Graph::floydMarshall(int idSource, int idTarget){
+    this->printer.str(string());
+    this->printer << "Running Floyd Marshall algorithm!";
+    Node *aux_node = this->first_node;
+    int** dist_nodes;
+    int i,j;
+
+    dist_nodes = aux_build_matrix(aux_node, this->order, dist_nodes);
+
+    this->printer << "The minimum distance between " << idSource << " and " << idTarget << " costs "
+    << dist_nodes[idSource-1][idTarget-1] << endl;
+
+
+    for (i = 0; i < this->order; i++) {
+        this->printer << "[ ";
+        for (j = 0; j < this->order; j++ ) {
+            if (dist_nodes[i][j] != -1)
+                this->printer << " " << dist_nodes[i][j] << " | ";
+            else {
+                this->printer << dist_nodes[i][j] << " | ";
+            }
+            if ( j == this->order - 1 )
+                this->printer << "]\n";
+        }
+    }
+    return this->printer.str();
 }
 
-   
 
-float Graph::dijkstra(int idSource, int idTarget){
-    
+
+
+/*float Graph::dijkstra(int idSource, int idTarget){
+
+}*/
+
+string Graph::dijkstra(int idOrigin, int idDestiny){
+    this->printer << "-->Dijkstra Algorimth\n";
+
+    int dist[this->order];
+    int visited[this->order];
+
+    //fila de prioridade para alocar a distancia entre os vértices
+    priority_queue < pair<int, int>, vector<pair<int, int> >, greater<pair<int, int> > > pq;
+
+    for(int i = 0; i < this->order; i++){
+        dist[i] = -1;
+        visited[i] = false;
+    }
+
+    dist[idOrigin] = 0;
+    pq.push(make_pair(dist[idOrigin], idOrigin));
+
+    while(!pq.empty()){
+        pair<int, int> p = pq.top(); // extrai o pair do topo
+        int u = p.second; // obtém o vértice do pair
+        pq.pop(); // remove da fila
+
+        // verifica se o vértice não foi expandido
+        if(visited[u] == false){
+            // marca como visitado
+            visited[u] = true;
+
+            list<pair<int, int> >::iterator it;
+
+            // percorre os vértices "v" adjacentes de "u"
+            for(it = adj[u].begin(); it != adj[u].end(); it++){
+                // obtém o vértice adjacente e o custo da aresta
+                int v = it->first;
+                int custo_aresta = it->second;
+
+                // relaxamento (u, v)
+                if(dist[v] > (dist[u] + custo_aresta)){
+                    // atualiza a distância de "v" e insere na fila
+                    dist[v] = dist[u] + custo_aresta;
+                    pq.push(make_pair(dist[v], v));
+                }
+            }
+        }
+    }
+
+    // retorna a distância mínima até o destino
+    this->printer << dist[idDestiny];
+
+    return this->printer.str();
 }
 
 //function that prints a topological sorting

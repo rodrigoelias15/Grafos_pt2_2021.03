@@ -134,6 +134,27 @@ void selecionar(int selecao, Graph* graph, ofstream& output_file){
             //Caminho mínimo entre dois vértices usando Dijkstra;
         case 2:{
 
+            string answer_source, answer_target ;
+            cout << "Please, type the node id source:  ";
+            cin >> answer_source;
+            cout << "Please, type the node id target:  ";
+            cin >> answer_target;
+
+            if(graph->getNode(atoi(answer_source.c_str())) == NULL || graph->getNode(atoi(answer_target.c_str())) == NULL){
+                cout << "Any node was not found! Please, repeat operation!";
+                return;
+            }
+
+            string fileText = graph->dijkstra(atoi(answer_source.c_str()), atoi(answer_target.c_str()));
+            stringstream ss;
+            cout << endl;
+            if ( fileText != "" ) {
+                ss << buildOutputFile(fileText, output_file);
+            }else{
+                cout << "Error";
+            }
+            cout << ss.str();
+            break;
             break;
         }
 
