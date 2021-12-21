@@ -130,10 +130,8 @@ void Graph::breadthFirstSearch(ofstream &output_file){
 
 
 
-/*float Graph::floydMarshall(int idSource, int idTarget){
 
-}*/
-string Graph::floydMarshall(int idSource, int idTarget){
+string Graph::floydWarshall(int idOrigin, int idDestiny){
     this->printer.str(string());
     this->printer << "Running Floyd Marshall algorithm!";
     Node *aux_node = this->first_node;
@@ -142,8 +140,8 @@ string Graph::floydMarshall(int idSource, int idTarget){
 
     dist_nodes = aux_build_matrix(aux_node, this->order, dist_nodes);
 
-    this->printer << "The minimum distance between " << idSource << " and " << idTarget << " costs "
-    << dist_nodes[idSource-1][idTarget-1] << endl;
+    this->printer << "The minimum distance between " << idSource << " and " << int idDestiny << " costs "
+    << dist_nodes[idOrigin-1][int idDestiny-1] << endl;
 
 
     for (i = 0; i < this->order; i++) {
@@ -162,11 +160,6 @@ string Graph::floydMarshall(int idSource, int idTarget){
 }
 
 
-
-
-/*float Graph::dijkstra(int idSource, int idTarget){
-
-}*/
 
 string Graph::dijkstra(int idOrigin, int idDestiny){
     this->printer << "-->Dijkstra Algorimth\n";
