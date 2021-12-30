@@ -12,6 +12,9 @@
 #include <float.h>
 #include <iomanip>
 
+#define V n
+#define INF 99999
+
 using namespace std;
 
 /**************************************************************************************************
@@ -19,8 +22,7 @@ using namespace std;
 **************************************************************************************************/
 
 // Constructor
-Graph::Graph(int order, bool directed, bool weighted_edge, bool weighted_node)
-{
+Graph::Graph(int order, bool directed, bool weighted_edge, bool weighted_node){
 
     this->order = order;
     this->directed = directed;
@@ -31,13 +33,11 @@ Graph::Graph(int order, bool directed, bool weighted_edge, bool weighted_node)
 }
 
 // Destructor
-Graph::~Graph()
-{
+Graph::~Graph(){
 
     Node *next_node = this->first_node;
 
-    while (next_node != nullptr)
-    {
+    while (next_node != nullptr){
 
         next_node->removeAllEdges();
         Node *aux_node = next_node->getNextNode();
@@ -47,45 +47,38 @@ Graph::~Graph()
 }
 
 // Getters
-int Graph::getOrder()
-{
+int Graph::getOrder(){
 
     return this->order;
 }
-int Graph::getNumberEdges()
-{
+int Graph::getNumberEdges(){
 
     return this->number_edges;
 }
 //Function that verifies if the graph is directed
-bool Graph::getDirected()
-{
+bool Graph::getDirected(){
 
     return this->directed;
 }
 //Function that verifies if the graph is weighted at the edges
-bool Graph::getWeightedEdge()
-{
+bool Graph::getWeightedEdge(){
 
     return this->weighted_edge;
 }
 
 //Function that verifies if the graph is weighted at the nodes
-bool Graph::getWeightedNode()
-{
+bool Graph::getWeightedNode(){
 
     return this->weighted_node;
 }
 
 
-Node *Graph::getFirstNode()
-{
+Node *Graph::getFirstNode(){
 
     return this->first_node;
 }
 
-Node *Graph::getLastNode()
-{
+Node *Graph::getLastNode(){
 
     return this->last_node;
 }
@@ -95,13 +88,11 @@ Node *Graph::getLastNode()
     The outdegree attribute of nodes is used as a counter for the number of edges in the graph.
     This allows the correct updating of the numbers of edges in the graph being directed or not.
 */
-void Graph::insertNode(int id)
-{
+void Graph::insertNode(int id){
 
 }
 
-void Graph::insertEdge(int id, int target_id, float weight)
-{
+void Graph::insertEdge(int id, int target_id, float weight){
 
 
 }
@@ -140,8 +131,8 @@ string Graph::floydWarshall(int idOrigin, int idDestiny){
 
     dist_nodes = aux_build_matrix(aux_node, this->order, dist_nodes);
 
-    this->printer << "The minimum distance between " << idSource << " and " << int idDestiny << " costs "
-    << dist_nodes[idOrigin-1][int idDestiny-1] << endl;
+    this->printer << "The minimum distance between " << idDestiny << " and " << int idDestiny << " costs "
+    << dist_nodes[idOrigin - 1][int idDestiny - 1] << endl;
 
 
     for (i = 0; i < this->order; i++) {
@@ -167,7 +158,7 @@ string Graph::dijkstra(int idOrigin, int idDestiny){
     int dist[this->order];
     int visited[this->order];
 
-    //fila de prioridade para alocar a distancia entre os vértices
+    //fila de prioridade para alocar a distancia entre os vï¿½rtices
     priority_queue < pair<int, int>, vector<pair<int, int> >, greater<pair<int, int> > > pq;
 
     for(int i = 0; i < this->order; i++){
@@ -180,25 +171,25 @@ string Graph::dijkstra(int idOrigin, int idDestiny){
 
     while(!pq.empty()){
         pair<int, int> p = pq.top(); // extrai o pair do topo
-        int u = p.second; // obtém o vértice do pair
+        int u = p.second; // obtem o vertice do pair
         pq.pop(); // remove da fila
 
-        // verifica se o vértice não foi expandido
+        // verifica se o vertice nao foi expandido
         if(visited[u] == false){
             // marca como visitado
             visited[u] = true;
 
             list<pair<int, int> >::iterator it;
 
-            // percorre os vértices "v" adjacentes de "u"
+            // percorre os vertices "v" adjacentes de "u"
             for(it = adj[u].begin(); it != adj[u].end(); it++){
-                // obtém o vértice adjacente e o custo da aresta
+                // obtem o vertice adjacente e o custo da aresta
                 int v = it->first;
                 int custo_aresta = it->second;
 
                 // relaxamento (u, v)
                 if(dist[v] > (dist[u] + custo_aresta)){
-                    // atualiza a distância de "v" e insere na fila
+                    // atualiza a distï¿½ncia de "v" e insere na fila
                     dist[v] = dist[u] + custo_aresta;
                     pq.push(make_pair(dist[v], v));
                 }
@@ -206,7 +197,7 @@ string Graph::dijkstra(int idOrigin, int idDestiny){
         }
     }
 
-    // retorna a distância mínima até o destino
+    // retorna a distancia minima ate o destino
     this->printer << dist[idDestiny];
 
     return this->printer.str();

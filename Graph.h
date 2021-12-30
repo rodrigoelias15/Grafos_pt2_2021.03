@@ -51,6 +51,8 @@ class Graph{
         Graph* agmPrim();
         string Graph::floydWarshall(int idOrigin, int idDestiny);
         string Graph::dijkstra(int idOrigin, int idDestiny);
+        /*void dijkstra(int graph[V][V], int src);
+        void floydWarshall(int graph[][V]);*/
 
         //methods phase1
         float greed();
