@@ -12,6 +12,22 @@
 
 using namespace std;
 
+string buildOutputFile(string text, ofstream& outputFile) {
+
+    if ( outputFile.is_open() ) {
+        outputFile << text;
+        outputFile.close();
+    } else {
+        stringstream ss;
+        ss << "Error: The file does not created." << endl;
+        return ss.str();
+    }
+
+    stringstream ss;
+    ss << "The output file was built.";
+    return ss.str();
+}
+
 Graph* leitura(ifstream& input_file, int directed, int weightedEdge, int weightedNode){
 
     //Variáveis para auxiliar na criação dos nós no Grafo

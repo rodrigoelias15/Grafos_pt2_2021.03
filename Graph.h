@@ -22,6 +22,10 @@ class Graph{
         bool weighted_node;
         Node* first_node;
         Node* last_node;
+        list<pair<int, int> > * adj;
+        stringstream printer;
+
+        int** aux_build_matrix(Node* node, int order,int** dist_nodes);
 
     public:
         //Constructor
@@ -51,8 +55,6 @@ class Graph{
         Graph* agmPrim();
         string Graph::floydWarshall(int idOrigin, int idDestiny);
         string Graph::dijkstra(int idOrigin, int idDestiny);
-        /*void dijkstra(int graph[V][V], int src);
-        void floydWarshall(int graph[][V]);*/
 
         //methods phase1
         float greed();

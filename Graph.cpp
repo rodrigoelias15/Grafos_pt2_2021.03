@@ -12,6 +12,7 @@
 #include <float.h>
 #include <iomanip>
 
+
 #define V n
 #define INF 99999
 
@@ -119,7 +120,46 @@ void Graph::breadthFirstSearch(ofstream &output_file){
 
 }
 
+int** Graph::aux_build_matrix(Node *node, int order, int **dist_nodes) {
+    int i,j,z;
+    Edge *aux_edge;
 
+    for(i = 0; i < order; i++){
+        dist_nodes[i] = new int [order];
+        for(j = 0; j < order; j++){
+            if(i == j)
+                dist_nodes[i][j] = 0;
+            else
+                dist_nodes[i][j] = -1;
+        }
+    }
+
+    this->printer << endl;
+
+    while(node != NULL){
+        aux_edge = node->getFirstEdge();
+        while(aux_edge != NULL){
+            dist_nodes[node->getId()-1][aux_edge->getTargetId()-1] = aux_edge->getWeight();
+            aux_edge = aux_edge->getNextEdge();
+        }
+        node = node->getNextNode();
+    }
+
+    for (i = 0; i < this->order; i++ ) {
+        for (j = 0; j < this->order; j++ ) {
+            if ( j != i ) {
+                for (z = 0; z < this->order; z++ ) {
+                    if (dist_nodes[j][i] != -1 && dist_nodes[i][z] != -1) {
+                        if (dist_nodes[j][z] > dist_nodes[j][i] + dist_nodes[i][z]
+                        || dist_nodes[j][z] == -1)
+                            dist_nodes[j][z] = dist_nodes[j][i] + dist_nodes[i][z];
+                    }
+                }
+            }
+        }
+    }
+    return dist_nodes;
+}
 
 
 string Graph::floydWarshall(int idOrigin, int idDestiny){
@@ -131,8 +171,8 @@ string Graph::floydWarshall(int idOrigin, int idDestiny){
 
     dist_nodes = aux_build_matrix(aux_node, this->order, dist_nodes);
 
-    this->printer << "The minimum distance between " << idDestiny << " and " << int idDestiny << " costs "
-    << dist_nodes[idOrigin - 1][int idDestiny - 1] << endl;
+    this->printer << "The minimum distance between " << idDestiny << " and " << idDestiny  << " costs "
+    << dist_nodes[idOrigin - 1][idDestiny - 1] << endl;
 
 
     for (i = 0; i < this->order; i++) {
