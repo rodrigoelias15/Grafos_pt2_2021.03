@@ -162,7 +162,7 @@ void selecionar(int selecao, Graph* graph, ofstream& output_file){
             //AGM - Kruscal;
         case 4:{
             Graph *sub_graph = graph->getVertexInduced();
-            string fileText = graph->agmKuskal(sub_graph);
+            string fileText = graph->agmKruskal(sub_graph);
             stringstream ss;
             cout << endl;
             if ( fileText != "" ) {

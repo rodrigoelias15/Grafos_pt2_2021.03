@@ -24,12 +24,15 @@ class Graph{
         Node* first_node;
         Node* last_node;
         stringstream printer;
+        
 
     public:
         //Constructor
         Graph(int order, bool directed, bool weighted_edge, bool weighted_node);
+
         //Destructor
         ~Graph();
+
         //Getters
         int getOrder();
         int getNumberEdges();
@@ -38,19 +41,23 @@ class Graph{
         bool getWeightedNode();
         Node* getFirstNode();
         Node* getLastNode();
+
         //Other methods
-        void insertNode(int id);
         void insertEdge(int id, int target_id, float weight);
-        void removeNode(int id);
         bool searchNode(int id);
         Node* getNode(int id);
+
+        Node* insertNode(int id);
+        bool removeNode(int id);
+        bool removeEdges(int id);
+        bool searchNode(int id);
 
         //methods phase1
         void topologicalSorting();
         void breadthFirstSearch(ofstream& output_file);
         Graph* getVertexInduced();
-        string agmKuskal(Graph* graph);
-        Graph* agmPrim();
+        string agmKruskal(Graph* graph);
+        string agmPrim(Graph* sub_graph);
         float floydMarshall(int idSource, int idTarget);
         float dijkstra(int idSource, int idTarget);
 
