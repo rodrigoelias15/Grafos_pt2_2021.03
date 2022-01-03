@@ -23,8 +23,10 @@ class Graph{
         bool weighted_node;
         Node* first_node;
         Node* last_node;
-        stringstream printer;
         list<pair<int, int> > * adj;
+        stringstream printer;
+
+        int** aux_build_matrix(Node* node, int order,int** dist_nodes);
 
     public:
         //Constructor
