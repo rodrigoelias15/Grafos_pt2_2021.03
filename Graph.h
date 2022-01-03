@@ -24,6 +24,7 @@ class Graph{
         Node* first_node;
         Node* last_node;
         stringstream printer;
+        list<pair<int, int> > * adj;
 
     public:
         //Constructor
@@ -44,20 +45,16 @@ class Graph{
         void removeNode(int id);
         bool searchNode(int id);
         Node* getNode(int id);
+        int** aux_build_matrix(Node* node, int order,int** dist_nodes);
 
         //methods phase1
         void topologicalSorting();
         void breadthFirstSearch(ofstream& output_file);
-<<<<<<< HEAD
-        Graph* getVertexInduced(int* listIdNodes);
-        Graph* agmKuskal();
-=======
         Graph* getVertexInduced();
         string agmKuskal(Graph* graph);
->>>>>>> rodrigo
         Graph* agmPrim();
-        string Graph::floydWarshall(int idOrigin, int idDestiny);
-        string Graph::dijkstra(int idOrigin, int idDestiny);
+        string floydWarshall(int idOrigin, int idDestiny);
+        string dijkstra(int idOrigin, int idDestiny);
 
         //methods phase1
         float greed();

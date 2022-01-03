@@ -128,8 +128,46 @@ void Graph::breadthFirstSearch(ofstream &output_file){
 
 }
 
+int** Graph::aux_build_matrix(Node *node, int order, int **dist_nodes) {
+    int i,j,z;
+    Edge *aux_edge;
 
+    for(i = 0; i < order; i++){
+        dist_nodes[i] = new int [order];
+        for(j = 0; j < order; j++){
+            if(i == j)
+                dist_nodes[i][j] = 0;
+            else
+                dist_nodes[i][j] = -1;
+        }
+    }
 
+    this->printer << endl;
+
+    while(node != NULL){
+        aux_edge = node->getFirstEdge();
+        while(aux_edge != NULL){
+            dist_nodes[node->getId()-1][aux_edge->getTargetId()-1] = aux_edge->getWeight();
+            aux_edge = aux_edge->getNextEdge();
+        }
+        node = node->getNextNode();
+    }
+
+    for (i = 0; i < this->order; i++ ) {
+        for (j = 0; j < this->order; j++ ) {
+            if ( j != i ) {
+                for (z = 0; z < this->order; z++ ) {
+                    if (dist_nodes[j][i] != -1 && dist_nodes[i][z] != -1) {
+                        if (dist_nodes[j][z] > dist_nodes[j][i] + dist_nodes[i][z]
+                        || dist_nodes[j][z] == -1)
+                            dist_nodes[j][z] = dist_nodes[j][i] + dist_nodes[i][z];
+                    }
+                }
+            }
+        }
+    }
+    return dist_nodes;
+}
 
 string Graph::floydWarshall(int idOrigin, int idDestiny){
     this->printer.str(string());
@@ -140,8 +178,8 @@ string Graph::floydWarshall(int idOrigin, int idDestiny){
 
     dist_nodes = aux_build_matrix(aux_node, this->order, dist_nodes);
 
-    this->printer << "The minimum distance between " << idSource << " and " << int idDestiny << " costs "
-    << dist_nodes[idOrigin-1][int idDestiny-1] << endl;
+    this->printer << "The minimum distance between " << idOrigin << " and " << idDestiny << " costs "
+    << dist_nodes[idOrigin-1][idDestiny-1] << endl;
 
 
     for (i = 0; i < this->order; i++) {
@@ -167,7 +205,7 @@ string Graph::dijkstra(int idOrigin, int idDestiny){
     int dist[this->order];
     int visited[this->order];
 
-    //fila de prioridade para alocar a distancia entre os vértices
+    //fila de prioridade para alocar a distancia entre os vï¿½rtices
     priority_queue < pair<int, int>, vector<pair<int, int> >, greater<pair<int, int> > > pq;
 
     for(int i = 0; i < this->order; i++){
@@ -180,25 +218,25 @@ string Graph::dijkstra(int idOrigin, int idDestiny){
 
     while(!pq.empty()){
         pair<int, int> p = pq.top(); // extrai o pair do topo
-        int u = p.second; // obtém o vértice do pair
+        int u = p.second; // obtï¿½m o vï¿½rtice do pair
         pq.pop(); // remove da fila
 
-        // verifica se o vértice não foi expandido
+        // verifica se o vï¿½rtice nï¿½o foi expandido
         if(visited[u] == false){
             // marca como visitado
             visited[u] = true;
 
             list<pair<int, int> >::iterator it;
 
-            // percorre os vértices "v" adjacentes de "u"
+            // percorre os vï¿½rtices "v" adjacentes de "u"
             for(it = adj[u].begin(); it != adj[u].end(); it++){
-                // obtém o vértice adjacente e o custo da aresta
+                // obtï¿½m o vï¿½rtice adjacente e o custo da aresta
                 int v = it->first;
                 int custo_aresta = it->second;
 
                 // relaxamento (u, v)
                 if(dist[v] > (dist[u] + custo_aresta)){
-                    // atualiza a distância de "v" e insere na fila
+                    // atualiza a distï¿½ncia de "v" e insere na fila
                     dist[v] = dist[u] + custo_aresta;
                     pq.push(make_pair(dist[v], v));
                 }
@@ -206,7 +244,7 @@ string Graph::dijkstra(int idOrigin, int idDestiny){
         }
     }
 
-    // retorna a distância mínima até o destino
+    // retorna a distï¿½ncia mï¿½nima atï¿½ o destino
     this->printer << dist[idDestiny];
 
     return this->printer.str();
@@ -264,14 +302,13 @@ Graph* Graph::getVertexInduced(){
     cout << "Subgraph was built with success!";
 
     return subgraph;
+
 }
 
-string Graph::agmKuskal(Graph * sub_graph){
-    this->printer << "-->AGM Kuskal\n";
-    this->printer << "Will be done" << endl;
-    return this->printer.str();
-}
 
+Graph* agmKuskal(Graph* graph){
+
+}
 Graph* agmPrim(){
 
 }
