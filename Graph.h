@@ -26,7 +26,7 @@ class Graph{
         list<pair<int, int> > * adj;
         stringstream printer;
 
-        int** aux_build_matrix(Node* node, int order,int** dist_nodes);
+        
 
     public:
         //Constructor
