@@ -23,9 +23,9 @@ class Graph{
         bool weighted_node;
         Node* first_node;
         Node* last_node;
+        list<pair<int, int> > * adj;
         stringstream printer;
         
-
     public:
         //Constructor
         Graph(int order, bool directed, bool weighted_edge, bool weighted_node);
@@ -46,6 +46,7 @@ class Graph{
         void insertEdge(int id, int target_id, float weight);
         bool searchNode(int id);
         Node* getNode(int id);
+        int** aux_build_matrix(Node* node, int order,int** dist_nodes);
 
         Node* insertNode(int id);
         bool removeNode(int id);
@@ -57,9 +58,9 @@ class Graph{
         void breadthFirstSearch(ofstream& output_file);
         Graph* getVertexInduced();
         string agmKruskal(Graph* graph);
-        string agmPrim(Graph* sub_graph);
-        float floydMarshall(int idSource, int idTarget);
-        float dijkstra(int idSource, int idTarget);
+        string agmPrim(Graph* sub_graph);        
+        string floydWarshall(int idOrigin, int idDestiny);
+        string dijkstra(int idOrigin, int idDestiny);
 
         //methods phase1
         float greed();

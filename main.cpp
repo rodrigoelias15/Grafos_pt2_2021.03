@@ -150,11 +150,42 @@ void selecionar(int selecao, Graph* graph, ofstream& output_file){
             //Caminho mínimo entre dois vértices usando Dijkstra;
         case 2:{
 
+            string answer_origin, answer_destiny;
+            cout << "Please, type the node id Origin:  ";
+            cin >> answer_origin;
+            cout << "Please, type the node id destiny:  ";
+            cin >> answer_destiny;
+
+            if(graph->getNode(atoi(answer_origin.c_str())) == NULL || graph->getNode(atoi(answer_destiny.c_str())) == NULL){
+                cout << "Any node was not found! Please, repeat operation!";
+                return;
+            }
+
+            string fileText = graph->dijkstra(atoi(answer_origin.c_str()), atoi(answer_destiny.c_str()));
+            stringstream ss;
+            cout << endl;
+            if ( fileText != "" ) {
+                ss << buildOutputFile(fileText, output_file);
+            }else{
+                cout << "Error";
+            }
+            cout << ss.str();
+            break;
             break;
         }
 
             //Caminho mínimo entre dois vértices usando Floyd;
         case 3:{
+             string answer_origin, answer_destiny ;
+            cout << "Please, type the node id origin:  ";
+            cin >> answer_origin;
+            cout << "Please, type the node id destiny:  ";
+            cin >> answer_destiny;
+
+            if(graph->getNode(atoi(answer_origin.c_str())) == NULL || graph->getNode(atoi(answer_destiny.c_str())) == NULL){
+                cout << "Any node was not found! Please, repeat operation!";
+                return;
+            }
 
             break;
         }
@@ -172,11 +203,21 @@ void selecionar(int selecao, Graph* graph, ofstream& output_file){
             }
             cout << ss.str();
             break;
-        }
+        }     
 
             //AGM Prim;
         case 5:{
-
+            Graph *sub_graph = graph->getVertexInduced();
+            string fileText = graph->agmPrim(sub_graph);
+            stringstream ss;
+            cout << endl;
+            if ( fileText != "" ) {
+                ss << buildOutputFile(fileText, output_file);
+            }else{
+                cout << "Error";
+            }
+            cout << ss.str();
+            break;
             break;
         }
 
