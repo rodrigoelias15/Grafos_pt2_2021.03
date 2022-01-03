@@ -201,16 +201,16 @@ void selecionar(int selecao, Graph* graph, ofstream& output_file){
 
             //AGM - Kruscal;
         case 4:{
-            Graph *sub_graph = graph->getVertexInduced();
-            string fileText = graph->agmKuskal(sub_graph);
-            stringstream ss;
-            cout << endl;
-            if ( fileText != "" ) {
-                ss << buildOutputFile(fileText, output_file);
-            }else{
-                cout << "Error";
-            }
-            cout << ss.str();
+            // Graph *sub_graph = graph->getVertexInduced();
+            // string fileText = graph->agmKuskal(sub_graph);
+            // stringstream ss;
+            // cout << endl;
+            // if ( fileText != "" ) {
+            //     ss << buildOutputFile(fileText, output_file);
+            // }else{
+            //     cout << "Error";
+            // }
+            // cout << ss.str();
             break;
         }
 

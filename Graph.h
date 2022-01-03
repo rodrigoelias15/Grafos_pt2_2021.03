@@ -47,6 +47,7 @@ class Graph{
         void removeNode(int id);
         bool searchNode(int id);
         Node* getNode(int id);
+        int** aux_build_matrix(Node* node, int order,int** dist_nodes);
 
         //methods phase1
         void topologicalSorting();
@@ -54,8 +55,8 @@ class Graph{
         Graph* getVertexInduced();
         string agmKuskal(Graph* graph);
         Graph* agmPrim();
-        string Graph::floydWarshall(int idOrigin, int idDestiny);
-        string Graph::dijkstra(int idOrigin, int idDestiny);
+        string floydWarshall(int idOrigin, int idDestiny);
+        string dijkstra(int idOrigin, int idDestiny);
 
         //methods phase1
         float greed();

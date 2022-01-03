@@ -161,7 +161,6 @@ int** Graph::aux_build_matrix(Node *node, int order, int **dist_nodes) {
     return dist_nodes;
 }
 
-
 string Graph::floydWarshall(int idOrigin, int idDestiny){
     this->printer.str(string());
     this->printer << "Running Floyd Marshall algorithm!";
@@ -295,14 +294,13 @@ Graph* Graph::getVertexInduced(){
     cout << "Subgraph was built with success!";
 
     return subgraph;
+
 }
 
-string Graph::agmKuskal(Graph * sub_graph){
-    this->printer << "-->AGM Kuskal\n";
-    this->printer << "Will be done" << endl;
-    return this->printer.str();
-}
 
+Graph* agmKuskal(Graph* graph){
+
+}
 Graph* agmPrim(){
 
 }
