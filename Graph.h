@@ -8,6 +8,7 @@
 #include <fstream>
 #include <stack>
 #include <list>
+#include <sstream>
 
 using namespace std;
 
@@ -50,8 +51,8 @@ class Graph{
         //methods phase1
         void topologicalSorting();
         void breadthFirstSearch(ofstream& output_file);
-        Graph* getVertexInduced(int* listIdNodes);
-        Graph* agmKuskal();
+        Graph* getVertexInduced();
+        string agmKuskal(Graph* graph);
         Graph* agmPrim();
         string Graph::floydWarshall(int idOrigin, int idDestiny);
         string Graph::dijkstra(int idOrigin, int idDestiny);

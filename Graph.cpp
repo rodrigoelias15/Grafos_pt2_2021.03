@@ -251,13 +251,58 @@ void topologicalSorting(){
 void breadthFirstSearch(ofstream& output_file){
 
 }
-Graph* getVertexInduced(int* listIdNodes){
 
+Graph* Graph::getVertexInduced(){
+    string answer_user;
+    Node* aux_node = this->first_node;
+    Edge* aux_edge;
+
+    cout << endl;
+    cout << "Enter id_nodes of graph and split with ',' : ";
+    cin >> answer_user;
+
+    vector<int> id_nodes;
+    id_nodes.clear();
+
+    stringstream ss(answer_user);
+
+    while (getline(ss, answer_user, ',')){
+        if(getNode(atoi(answer_user.c_str())))
+            id_nodes.push_back(atoi(answer_user.c_str()));
+        else
+            cout << "Error. Node wasn't found.";
+    }
+
+    Graph *subgraph = new Graph(id_nodes.size(), this->directed, this->weighted_edge, this->weighted_node);
+
+    //clean graph
+    while(aux_node != NULL){
+        aux_node->setIsVisited(false);
+        aux_node = aux_node->getNextNode();
+    }
+
+    int i,j;
+    for(i = 0; i < id_nodes.size(); i++){
+        for(j = i+1; j < id_nodes.size(); j++){
+            if((!getNode(id_nodes[j])->isNodeVisited() && getNode(id_nodes[i])->searchEdge(id_nodes[j]))){
+                aux_edge = getNode(id_nodes[i])->getEdge(id_nodes[j]);
+                subgraph->insertEdge(id_nodes[i], id_nodes[j], aux_edge->getWeight());
+            }
+        }
+        getNode(id_nodes[i])->setIsVisited(true);
+    }
+
+    cout << "Subgraph was built with success!";
+
+    return subgraph;
 }
 
-Graph* agmKuskal(){
-
+string Graph::agmKuskal(Graph * sub_graph){
+    this->printer << "-->AGM Kuskal\n";
+    this->printer << "Will be done" << endl;
+    return this->printer.str();
 }
+
 Graph* agmPrim(){
 
 }
