@@ -8,6 +8,7 @@
 #include <fstream>
 #include <stack>
 #include <list>
+#include <sstream>
 
 using namespace std;
 
@@ -22,6 +23,7 @@ class Graph{
         bool weighted_node;
         Node* first_node;
         Node* last_node;
+        stringstream printer;
 
     public:
         //Constructor
@@ -46,8 +48,13 @@ class Graph{
         //methods phase1
         void topologicalSorting();
         void breadthFirstSearch(ofstream& output_file);
+<<<<<<< HEAD
         Graph* getVertexInduced(int* listIdNodes);
         Graph* agmKuskal();
+=======
+        Graph* getVertexInduced();
+        string agmKuskal(Graph* graph);
+>>>>>>> rodrigo
         Graph* agmPrim();
         string Graph::floydWarshall(int idOrigin, int idDestiny);
         string Graph::dijkstra(int idOrigin, int idDestiny);

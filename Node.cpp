@@ -228,3 +228,23 @@ Edge* Node::hasEdgeBetween(int target_id)
     }
     return nullptr;
 }
+
+void Node::setIsVisited(bool isVisited) {
+    Node::isVisited = isVisited;
+}
+
+bool Node::isNodeVisited()  {
+    return isVisited;
+}
+
+Edge* Node::getEdge(int target_id)
+{
+    Edge *aux_edge;
+
+    for(aux_edge = this->first_edge; aux_edge != NULL; aux_edge = aux_edge->getNextEdge())
+    {
+        if(aux_edge->getTargetId() == target_id)
+            return aux_edge;
+    }
+    return NULL;
+}

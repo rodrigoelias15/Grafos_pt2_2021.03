@@ -20,6 +20,7 @@ class Node{
         unsigned int out_degree;
         float weight;
         Node* next_node;
+        bool isVisited;
 
     public:
         // Constructor
@@ -37,6 +38,7 @@ class Node{
         // Setters
         void setNextNode(Node* node);
         void setWeight(float weight);
+        void setIsVisited(bool isVisited);
         // Other methods
         bool searchEdge(int target_id);
         void insertEdge(int target_id, float weight);
@@ -47,6 +49,8 @@ class Node{
         void incrementInDegree();
         void decrementInDegree();
         Edge* hasEdgeBetween(int target_id);
+        bool isNodeVisited();
+        Edge* getEdge(int target_id);
         // Auxiliar methods
 
 };
