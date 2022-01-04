@@ -9,7 +9,16 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="63a2915e-6dd2-4cea-b6ad-e99e784e63a2" name="Changes" comment="AGM - Kruskal no arquivo main.cpp" />
+    <list default="true" id="63a2915e-6dd2-4cea-b6ad-e99e784e63a2" name="Changes" comment="AGM - Kruskal no arquivo main.cpp">
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Edge.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Edge.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Edge.h" beforeDir="false" afterPath="$PROJECT_DIR$/Edge.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Graph.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Graph.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Graph.h" beforeDir="false" afterPath="$PROJECT_DIR$/Graph.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grupo20.exe" beforeDir="false" afterPath="$PROJECT_DIR$/grupo20.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,6 +29,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="21FNTxTOytCT8Pi2BYNi3azNcsd" />
   <component name="ProjectViewState">
@@ -35,14 +47,10 @@
     <property name="cidr.known.project.marker" value="true" />
     <property name="cmake.loaded.for.project" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="CPPToolchains" />
   </component>
   <component name="RunManager">
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
     <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -64,6 +72,7 @@
       <workItem from="1639913008603" duration="7692000" />
       <workItem from="1640039793258" duration="4055000" />
       <workItem from="1640729973436" duration="1184000" />
+      <workItem from="1641254202449" duration="6651000" />
     </task>
     <task id="LOCAL-00001" summary="AGM - Kruskal no arquivo main.cpp">
       <created>1639914333608</created>
@@ -88,7 +97,6 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="AGM - Kruskal no arquivo main.cpp" />

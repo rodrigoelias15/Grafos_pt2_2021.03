@@ -1,3 +1,23 @@
+/*#include "Graph.h"
+#include "Node.h"
+#include "Edge.h"
+#include <iostream>
+#include <fstream>
+#include <stack>
+#include <queue>
+#include <list>
+#include <math.h>
+#include <cstdlib>
+#include <ctime>
+#include <algorithm>
+#include <string.h>
+#include <float.h>
+#include <iomanip>
+#include <cstring>
+#include <vector>
+*/
+#define MAX_INT 999999
+
 #include "Graph.h"
 #include "Node.h"
 #include "Edge.h"
@@ -11,8 +31,11 @@
 #include <ctime>
 #include <float.h>
 #include <iomanip>
-
-#define MAX_INT 999999
+#include <algorithm>
+#include <string.h>
+#include <vector>
+#include <iomanip>
+#include <climits>
 
 using namespace std;
 
@@ -82,11 +105,7 @@ Node *Graph::getLastNode()
     return this->last_node;
 }
 
-// Other methods
-/*
-    The outdegree attribute of nodes is used as a counter for the number of edges in the graph.
-    This allows the correct updating of the numbers of edges in the graph being directed or not.
-*/
+
 Node *Graph::insertNode(int id)
 {
     if (this->first_node == NULL)
@@ -113,6 +132,27 @@ Node *Graph::insertNode(int id)
 
 void Graph::insertEdge(int id, int target_id, float weight)
 {
+    Node *node, *targetNode;
+    node = getNode(id);
+    if (node != nullptr)
+    {
+        targetNode = getNode(target_id);
+        if (targetNode != nullptr)
+        {
+            node->insertEdge(target_id, weight);
+            if (this->getDirected())
+            {
+                node->incrementOutDegree();
+                targetNode->incrementInDegree();
+            }
+            else
+            {
+                node->incrementInDegree();
+                targetNode->insertEdge(id, weight);
+                targetNode->incrementOutDegree();
+            }
+        }
+    }
 }
 
 bool Graph::removeNode(int id)
@@ -121,20 +161,20 @@ bool Graph::removeNode(int id)
     {
         Node *excluded = this->last_node;
 
-        // Se a raiz for o nó a ser excluido, passo a referencia para o prox no
+
         if (this->later_node_of_search == this->first_node)
         {
             this->first_node = this->first_node->getNextNode();
         }
         else
-        { // aponto o proximo no do no a ser removido para o anterior, para nao quebrar os ponteiros
+        {
             this->previous_node_of_search = this->later_node_of_search->getNextNode();
         }
 
         this->later_node_of_search = this->first_node;
 
         while (this->later_node_of_search != NULL)
-        { // continuar o método
+        {
             return false;
         }
 
@@ -179,9 +219,6 @@ Node *Graph::getNode(int id)
     return NULL;
 }
 
-// Function that prints a set of edges belongs breadth tree
-
-//Function that prints a set of edges belongs breadth tree
 
 void Graph::breadthFirstSearch(ofstream &output_file){
 
@@ -256,10 +293,9 @@ string Graph::floydWarshall(int idOrigin, int idDestiny){
     return this->printer.str();
 }
 
-
-
-string Graph::dijkstra(int idOrigin, int idDestiny){
-    this->printer << "-->Dijkstra Algorimth\n";
+string Graph::dijkstra(int idOrigin, int idDestiny)
+{
+    this->printer << "-->Dijkstra\n";
 
     int dist[this->order];
     int visited[this->order];
@@ -275,41 +311,28 @@ string Graph::dijkstra(int idOrigin, int idDestiny){
     dist[idOrigin] = 0;
     pq.push(make_pair(dist[idOrigin], idOrigin));
 
-    while(!pq.empty()){
-        pair<int, int> p = pq.top(); // extrai o pair do topo
-        int u = p.second; // obtem o vertice do pair
-        pq.pop(); // remove da fila
-
-        // verifica se o vertice nao foi expandido
-        if(visited[u] == false){
-            // marca como visitado
+    while(!pq.empty()) {
+        pair<int, int> p = pq.top();
+        int u = p.second;
+        pq.pop();
+        if (visited[u] == false) {
             visited[u] = true;
-
-            list<pair<int, int> >::iterator it;
-
-            // percorre os vertices "v" adjacentes de "u"
-            for(it = adj[u].begin(); it != adj[u].end(); it++){
-                // obtem o vertice adjacente e o custo da aresta
+            list < pair < int, int > > ::iterator
+            it;
+            for (it = adj[u].begin(); it != adj[u].end(); it++) {
                 int v = it->first;
                 int custo_aresta = it->second;
-
-                // relaxamento (u, v)
-                if(dist[v] > (dist[u] + custo_aresta)){
-                    // atualiza a dist�ncia de "v" e insere na fila
+                if (dist[v] > (dist[u] + custo_aresta)) {
                     dist[v] = dist[u] + custo_aresta;
                     pq.push(make_pair(dist[v], v));
                 }
             }
         }
     }
-
-    // retorna a distancia minima ate o destino
     this->printer << dist[idDestiny];
-
     return this->printer.str();
 }
 
-// function that prints a topological sorting
 void topologicalSorting()
 {
 }
@@ -369,11 +392,59 @@ Graph *Graph::getVertexInduced()
     return subgraph;
 }
 
-string Graph::agmKruskal(Graph *sub_graph)
+int buscar(int subset[], int i)
 {
-    this->printer << "-->AGM Kruskal\n";
-    this->printer << "Will be done" << endl;
-    return this->printer.str();
+    if (subset[i] == -1)
+        return i;
+    return buscar(subset, subset[i]);
+}
+
+void unir(int subset[], int v1, int v2)
+{
+    int v1_set = buscar(subset, v1);
+    int v2_set = buscar(subset, v2);
+    subset[v1_set] = v2_set;
+}
+
+Graph *Graph::agmKruskal(Graph *graph, ofstream &output_file)
+{
+    vector<Edge> arvore;
+    int size_edges = edges.size();
+    sort (edges.begin(), edges.end());
+    int V = graph->getOrder();
+    int *subset = new int[V + 1];
+    memset(subset, -1, sizeof(int) * V);
+    for (int i = 0; i < size_edges; i++)
+    {
+        int v1 = buscar(subset, edges[i].getOriginId());
+        int v2 = buscar(subset, edges[i].getTargetId());
+        if (v1 != v2)
+        {
+            arvore.push_back(edges[i]);
+            unir(subset, v1, v2);
+        }
+    }
+    int arvoreTam = arvore.size();
+    cout << endl;
+    cout << "AGM com Kruskal" << endl;
+    float pesoTotal = 0;
+    for (int i = 0; i < arvoreTam; i++)
+    {
+        int v1 = arvore[i].getOriginId();
+        int v2 = arvore[i].getTargetId();
+        int weight = arvore[i].getWeight();
+        pesoTotal = weight + pesoTotal;
+        cout << "(" << v1 << ", " << v2 << ") - peso = " << weight << endl;
+    }
+    cout << "Peso total: " << pesoTotal << endl;
+    cout << endl;
+
+    output_file << "Kruskal Graph{" << endl;
+    for (int i = 0; i < arvoreTam; i++)
+    {
+        output_file << "\t" << arvore[i].getOriginId() << " -- " << arvore[i].getTargetId() << ";" << endl;
+    }
+    output_file << "}";
 }
 
 string Graph::agmPrim(Graph *sub_graph)

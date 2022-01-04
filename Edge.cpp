@@ -9,8 +9,10 @@ using namespace std;
 
 // Constructor
 Edge::Edge(int target_id){
-
+    int id;
+    float weight;
     this->target_id = target_id;
+    this->origin_id = id;
     this->next_edge = nullptr;
     this->weight = 0;
 
@@ -30,6 +32,13 @@ Edge::~Edge(){
 int Edge::getTargetId(){
 
     return this->target_id;
+
+}
+
+int Edge::getOriginId()
+{
+
+    return this->origin_id;
 
 }
 

@@ -9,6 +9,7 @@
 #include <stack>
 #include <list>
 #include <sstream>
+#include <vector>
 
 using namespace std;
 
@@ -32,7 +33,7 @@ private:
 public:
     // Constructor
     Graph(int order, bool directed, bool weighted_edge, bool weighted_node);
-
+    vector<Edge> edges;
     // Destructor
     ~Graph();
 
@@ -58,7 +59,7 @@ public:
     void topologicalSorting();
     void breadthFirstSearch(ofstream &output_file);
     Graph *getVertexInduced();
-    string agmKruskal(Graph *graph);
+    Graph *agmKruskal(Graph *graph, ofstream &output_file);
     string agmPrim(Graph *sub_graph);
     string floydWarshall(int idOrigin, int idDestiny);
     string dijkstra(int idOrigin, int idDestiny);

@@ -12,11 +12,11 @@
 
 using namespace std;
 
-string buildOutputFile(string text, ofstream& outputFile) {
+string buildOutputFile(string text, ofstream& output_file) {
 
-    if ( outputFile.is_open() ) {
-        outputFile << text;
-        outputFile.close();
+    if ( output_file.is_open() ) {
+        output_file << text;
+        output_file.close();
     } else {
         stringstream ss;
         ss << "Error: The file does not created." << endl;
@@ -190,18 +190,8 @@ void selecionar(int selecao, Graph* graph, ofstream& output_file){
             break;
         }
 
-            //AGM - Kruscal;
         case 4:{
-            Graph *sub_graph = graph->getVertexInduced();
-            string fileText = graph->agmKruskal(sub_graph);
-            stringstream ss;
-            cout << endl;
-            if ( fileText != "" ) {
-                ss << buildOutputFile(fileText, output_file);
-            }else{
-                cout << "Error";
-            }
-            cout << ss.str();
+            graph->agmKruskal(graph, output_file);
             break;
         }     
 
