@@ -134,10 +134,10 @@ void Graph::insertEdge(int id, int target_id, float weight)
 {
     Node *node, *targetNode;
     node = getNode(id);
-    if (node != nullptr)
+    if (node != NULL)
     {
         targetNode = getNode(target_id);
-        if (targetNode != nullptr)
+        if (targetNode != NULL)
         {
             node->insertEdge(target_id, weight);
             if (this->getDirected())
