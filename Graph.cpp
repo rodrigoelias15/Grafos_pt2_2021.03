@@ -406,46 +406,46 @@ void unir(int subset[], int v1, int v2)
     subset[v1_set] = v2_set;
 }
 
-Graph *Graph::agmKruskal(Graph *graph, ofstream &output_file)
-{
-    vector<Edge> arvore;
-    int size_edges = edges.size();
-    sort (edges.begin(), edges.end());
-    int V = graph->getOrder();
-    int *subset = new int[V + 1];
-    memset(subset, -1, sizeof(int) * V);
-    for (int i = 0; i < size_edges; i++)
-    {
-        int v1 = buscar(subset, edges[i].getOriginId());
-        int v2 = buscar(subset, edges[i].getTargetId());
-        if (v1 != v2)
-        {
-            arvore.push_back(edges[i]);
-            unir(subset, v1, v2);
-        }
-    }
-    int arvoreTam = arvore.size();
-    cout << endl;
-    cout << "AGM com Kruskal" << endl;
-    float pesoTotal = 0;
-    for (int i = 0; i < arvoreTam; i++)
-    {
-        int v1 = arvore[i].getOriginId();
-        int v2 = arvore[i].getTargetId();
-        int weight = arvore[i].getWeight();
-        pesoTotal = weight + pesoTotal;
-        cout << "(" << v1 << ", " << v2 << ") - peso = " << weight << endl;
-    }
-    cout << "Peso total: " << pesoTotal << endl;
-    cout << endl;
+// void Graph::agmKruskal(Graph *graph, ofstream &output_file)
+// {
+//     int V = graph->getOrder();
+//     int *subset = new int[V + 1];
+//     vector<Edge> arvore;
+//     int size_edges = edges.size();
+//     sort (edges.begin(), edges.end());
+//     memset(subset, -1, sizeof(int) * V);
+//     for (int i = 0; i < size_edges; i++)
+//     {
+//         int v1 = buscar(subset, edges[i].getOriginId());
+//         int v2 = buscar(subset, edges[i].getTargetId());
+//         if (v1 != v2)
+//         {
+//             arvore.push_back(edges[i]);
+//             unir(subset, v1, v2);
+//         }
+//     }
+//     int arvoreTam = arvore.size();
+//     cout << endl;
+//     cout << "AGM com Kruskal" << endl;
+//     float pesoTotal = 0;
+//     for (int i = 0; i < arvoreTam; i++)
+//     {
+//         int v1 = arvore[i].getOriginId();
+//         int v2 = arvore[i].getTargetId();
+//         int weight = arvore[i].getWeight();
+//         pesoTotal = weight + pesoTotal;
+//         cout << "(" << v1 << ", " << v2 << ") - peso = " << weight << endl;
+//     }
+//     cout << "Peso total: " << pesoTotal << endl;
+//     cout << endl;
 
-    output_file << "Kruskal Graph{" << endl;
-    for (int i = 0; i < arvoreTam; i++)
-    {
-        output_file << "\t" << arvore[i].getOriginId() << " -- " << arvore[i].getTargetId() << ";" << endl;
-    }
-    output_file << "}";
-}
+//     output_file << "Kruskal Graph{" << endl;
+//     for (int i = 0; i < arvoreTam; i++)
+//     {
+//         output_file << "\t" << arvore[i].getOriginId() << " -- " << arvore[i].getTargetId() << ";" << endl;
+//     }
+//     output_file << "}";
+// }
 
 string Graph::agmPrim(Graph *sub_graph)
 {
