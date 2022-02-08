@@ -10,6 +10,7 @@
 #include <list>
 #include <sstream>
 #include <vector>
+#include "Cluster.h"
 
 using namespace std;
 
@@ -29,10 +30,16 @@ private:
     Node *later_node_of_search;
     list<pair<int, int> > *adj;
     stringstream printer;
+    bool has_clusters;
+    int number_clusters;
+    int node_cont;
+    Cluster *first_cluster;
+    list<int> *adjacencia; /// lista de adjacencia
 
 public:
     // Constructor
     Graph(int order, bool directed, bool weighted_edge, bool weighted_node);
+    Graph(int order, bool directed, bool weighted_edge, bool weighted_node, bool has_clusters);
     vector<Edge> edges;
     // Destructor
     ~Graph();
@@ -64,8 +71,9 @@ public:
     string floydWarshall(int idOrigin, int idDestiny);
     string dijkstra(int idOrigin, int idDestiny);
 
+    Graph *greed();
+
     // methods phase1
-    float greed();
     float greedRandom();
     float greedRactiveRandom();
 };

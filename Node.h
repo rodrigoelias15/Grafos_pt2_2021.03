@@ -21,6 +21,7 @@ class Node{
         float weight;
         Node* next_node;
         bool isVisited;
+        int cluster;
 
     public:
         // Constructor
@@ -52,6 +53,8 @@ class Node{
         bool isNodeVisited();
         Edge* getEdge(int target_id);
         // Auxiliar methods
+
+        int getCluster();
 
 };
 

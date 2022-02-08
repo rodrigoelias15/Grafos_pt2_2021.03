@@ -35,18 +35,18 @@ string buildOutputFile(string text, ofstream &output_file)
 Graph *leitura(ifstream &input_file, int directed, int weightedEdge, int weightedNode)
 {
 
-    //Variáveis para auxiliar na criação dos nós no Grafo
+    // Variáveis para auxiliar na criação dos nós no Grafo
     int idNodeSource;
     int idNodeTarget;
     int order;
 
-    //Pegando a ordem do grafo
+    // Pegando a ordem do grafo
     input_file >> order;
 
-    //Criando objeto grafo
+    // Criando objeto grafo
     Graph *graph = new Graph(order, directed, weightedEdge, weightedNode);
 
-    //Leitura de arquivo
+    // Leitura de arquivo
 
     if (!graph->getWeightedEdge() && !graph->getWeightedNode())
     {
@@ -101,19 +101,19 @@ Graph *leitura(ifstream &input_file, int directed, int weightedEdge, int weighte
 Graph *leituraInstancia(ifstream &input_file, int directed, int weightedEdge, int weightedNode)
 {
 
-    //Variáveis para auxiliar na criação dos nós no Grafo
+    // Variáveis para auxiliar na criação dos nós no Grafo
     int idNodeSource;
     int idNodeTarget;
     int order;
     int numEdges;
 
-    //Pegando a ordem do grafo
+    // Pegando a ordem do grafo
     input_file >> order >> numEdges;
 
-    //Criando objeto grafo
+    // Criando objeto grafo
     Graph *graph = new Graph(order, directed, weightedEdge, weightedNode);
 
-    //Leitura de arquivo
+    // Leitura de arquivo
     while (input_file >> idNodeSource >> idNodeTarget)
     {
 
@@ -121,6 +121,51 @@ Graph *leituraInstancia(ifstream &input_file, int directed, int weightedEdge, in
     }
 
     return graph;
+}
+
+
+void escrita(Graph *graph, ofstream &output_file)
+{
+    if (graph != nullptr)
+    {
+        Node *auxNode = graph->getFirstNode();
+        Edge *auxEdge;
+        int tam = graph->getOrder();
+        if (graph->getDirected())
+        {
+            output_file << "strict digraph grafo{" << endl;
+            for (int i = 0; i < tam; i++)
+            {
+                auxEdge = auxNode->getFirstEdge();
+                int cont = 0;
+                while ((cont < (auxNode->getOutDegree() + auxNode->getInDegree())) && auxEdge != nullptr)
+                {
+                    output_file << "\t" << auxNode->getId() << " -> " << auxEdge->getTargetId() << ";" << endl;
+                    auxEdge = auxEdge->getNextEdge();
+                    cont++;
+                }
+                auxNode = auxNode->getNextNode();
+            }
+            output_file << "}" << endl;
+        }
+        else
+        {
+            output_file << "strict graph grafo{" << endl;
+            for (int i = 0; i < tam; i++)
+            {
+                auxEdge = auxNode->getFirstEdge();
+                int cont = 0;
+                while ((cont < (auxNode->getOutDegree() + auxNode->getInDegree())) && auxEdge != nullptr)
+                {
+                    output_file << "\t" << auxNode->getId() << " -- " << auxEdge->getTargetId() << ";" << endl;
+                    auxEdge = auxEdge->getNextEdge();
+                    cont++;
+                }
+                auxNode = auxNode->getNextNode();
+            }
+            output_file << "}" << endl;
+        }
+    }
 }
 
 int menu()
@@ -153,13 +198,13 @@ void selecionar(int selecao, Graph *graph, ofstream &output_file)
     switch (selecao)
     {
 
-    //Subgrafo induzido por um conjunto de vértices X;
+    // Subgrafo induzido por um conjunto de vértices X;
     case 1:
     {
 
         break;
     }
-        //Caminho mínimo entre dois vértices usando Dijkstra;
+        // Caminho mínimo entre dois vértices usando Dijkstra;
     case 2:
     {
 
@@ -191,7 +236,7 @@ void selecionar(int selecao, Graph *graph, ofstream &output_file)
         break;
     }
 
-        //Caminho mínimo entre dois vértices usando Floyd;
+        // Caminho mínimo entre dois vértices usando Floyd;
     case 3:
     {
         string answer_origin, answer_destiny;
@@ -228,23 +273,40 @@ void selecionar(int selecao, Graph *graph, ofstream &output_file)
         break;
     }
 
-    //AGM Kruskal;
+    // AGM Kruskal;
     case 5:
     {
         // graph->agmKruskal(graph, output_file);
         break;
     }
 
-        //Busca em largura;
+        // Busca em largura;
     case 6:
     {
 
         break;
     }
-        //Ordenação Topologica;
+        // Ordenação Topologica;
     case 7:
     {
 
+        break;
+    }
+    case 8:
+    {
+
+        time_t start, end;
+        Graph *g;
+
+        time(&start);
+        g = graph->greed();
+        time(&end);
+
+        double time_taken = double(end - start);
+        cout << "Execution time : " << fixed
+             << time_taken << setprecision(3);
+        cout << " sec " << endl;
+        escrita(g, output_file);
         break;
     }
     default:
@@ -279,7 +341,7 @@ int mainMenu(ofstream &output_file, Graph *graph)
 int main(int argc, char const *argv[])
 {
 
-    //Verificação se todos os parâmetros do programa foram entrados
+    // Verificação se todos os parâmetros do programa foram entrados
     if (argc != 6)
     {
 
@@ -297,7 +359,7 @@ int main(int argc, char const *argv[])
         cout << "Running " << program_name << " with instance " << instance << " ... " << endl;
     }
 
-    //Abrindo arquivo de entrada
+    // Abrindo arquivo de entrada
     ifstream input_file;
     ofstream output_file;
     input_file.open(argv[1], ios::in);
@@ -315,10 +377,10 @@ int main(int argc, char const *argv[])
 
     mainMenu(output_file, graph);
 
-    //Fechando arquivo de entrada
+    // Fechando arquivo de entrada
     input_file.close();
 
-    //Fechando arquivo de saída
+    // Fechando arquivo de saída
     output_file.close();
 
     return 0;
